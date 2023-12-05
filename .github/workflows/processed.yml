@@ -39,4 +39,4 @@ jobs:
           git remote set-url origin "https://${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}.git"
           git add POIdb.csv
           git commit -m "Remove EXPERIMENTAL line and process data"
-          git push main
+          git push
