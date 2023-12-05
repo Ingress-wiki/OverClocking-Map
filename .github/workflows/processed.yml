@@ -38,6 +38,6 @@ jobs:
 
       - name: Commit and push changes
         run: |
-          git add OIdb.csv
+          git add POIdb.csv
           git commit -m "Remove EXPERIMENTAL line and process data"
           git push origin gh-pages
