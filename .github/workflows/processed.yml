@@ -34,6 +34,8 @@ jobs:
 
       - name: Commit and push changes
         run: |
+          git config --global user.email "digby@65mail.cn"
+          git config --global user.name "ChestnutLUO"
           git add POIdb.csv
           git commit -m "Remove EXPERIMENTAL line and process data"
           git push main
