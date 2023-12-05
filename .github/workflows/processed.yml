@@ -37,7 +37,7 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.DEPLOY_SECRET }}
-          user_name: ${{ secrets.MY_USER_NAME }}
-          user_email: ${{ secrets.MY_USER_EMAIL }}
+          user_name: "GitHub Actions"
+          user_email: "actions@github.com"
           commit_message: upload
 
