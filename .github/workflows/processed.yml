@@ -1,0 +1,42 @@
+name: OC-data-processed
+
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  process_data:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Download CSV file
+        run: |
+          curl -O https://storage.googleapis.com/prod-geoservice-lightship/POIsLightshipDevPortal.csv
+
+      - name: Remove EXPERIMENTAL line
+        run: sed -i '/EXPERIMENTAL/d' POIsLightshipDevPortal.csv
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: Install dependencies
+        run: pip install pandas
+
+      - name: Run processed.py
+        run: python main/processed.py
+
+      - name: Commit and push changes
+        run: |
+          git config user.email "actions@github.com"
+          git config user.name "GitHub Actions"
+          git add POIsLightshipDevPortal.csv
+          git commit -m "Update database"
+          git push origin gh-pages
