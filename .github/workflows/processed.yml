@@ -34,8 +34,8 @@ jobs:
 
       - name: Set up Git with PAT
         run: |
-          git config --global user.email "actions@github.com"
-          git config --global user.name "github-actions[bot]"
+          git config --global user.email "digby@65mail.cn"
+          git config --global user.name "ChestnutLUO"
           git remote set-url origin "https://${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}.git"
           
       - name: Commit and push changes
