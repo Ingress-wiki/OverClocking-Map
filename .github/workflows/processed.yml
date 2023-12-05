@@ -21,7 +21,7 @@ jobs:
           sed -i '/EXPERIMENTAL/d' POIsLightshipDevPortal.csv
 
       - name: Run processed.py
-        run: python main/processed.py
+        run: python processed.py
 
       - name: Commit changes
         run: |
