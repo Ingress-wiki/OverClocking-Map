@@ -35,7 +35,12 @@ jobs:
           git config --global user.email "actions@github.com"
           git config --global user.name "github-actions[bot]"
           git remote set-url origin "https://${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}.git"
-
+     
+     - name: change branch
+        run: |
+          git checkout -B gh-pages
+          git push -u origin gh-pages
+          
       - name: Commit and push changes
         run: |
           git add POIdb.csv
