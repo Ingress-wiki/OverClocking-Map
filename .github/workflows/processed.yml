@@ -12,10 +12,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: remove old db
-        run: |
-          rm POIsLightshipDevPortal.csv
-          rm POIdb.csv
+
     
       - name: Checkout repository
         uses: actions/checkout@v2
