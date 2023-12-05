@@ -32,14 +32,8 @@ jobs:
       - name: Run processed.py
         run: python processed.py
 
-      - name: Set up Git with PAT
-        run: |
-          git config --global user.email "digby@65mail.cn"
-          git config --global user.name "ChestnutLUO"
-          git remote set-url origin "https://${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}.git"
-          
       - name: Commit and push changes
         run: |
           git add POIdb.csv
           git commit -m "Remove EXPERIMENTAL line and process data"
-          git push 
+          git push main
