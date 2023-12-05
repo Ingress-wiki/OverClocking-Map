@@ -20,4 +20,4 @@ with open(file_path, 'r') as infile:
             new_row = [row[i] for i in range(len(row)) if i not in indices_to_remove]
             writer.writerow(new_row)
 
-print("处理完成")
+print("Processing is complete")
