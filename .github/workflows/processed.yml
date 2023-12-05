@@ -40,4 +40,4 @@ jobs:
         run: |
           git add POIdb.csv
           git commit -m "Remove EXPERIMENTAL line and process data"
-          git push origin gh-pages
+          git push origin pages
