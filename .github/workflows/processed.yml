@@ -12,6 +12,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: remove old db
+        run: |
+          rm POIsLightshipDevPortal.csv
+          rm POIdb.csv
+    
       - name: Checkout repository
         uses: actions/checkout@v2
 
@@ -40,4 +45,4 @@ jobs:
         run: |
           git add POIdb.csv
           git commit -m "Remove EXPERIMENTAL line and process data"
-          git push origin pages
+          git push 
