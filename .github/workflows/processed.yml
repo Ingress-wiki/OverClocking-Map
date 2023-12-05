@@ -26,15 +26,11 @@ jobs:
       - name: Run processed.py
         run: python processed.py
 
-      - name: Commit changes
+      - name: Commit and push changes to gh-pages branch
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add POIdb.csv
+          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Actions"
+          git checkout -b gh-pages origin/gh-pages || git checkout --orphan gh-pages
+          git add .
           git commit -m "Update CSV file"
-
-      - name: Push changes to gh-pages branch
-        uses: ad-m/github-push-action@v0.7.0
-        with:
-          branch: gh-pages
-          github_token: ${{ secrets.REPO_TOKEN }}
+          git push origin gh-pages
