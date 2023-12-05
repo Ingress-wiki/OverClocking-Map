@@ -1,19 +1,14 @@
 name: OC-data-processed
 
 on:
-  push:
-    branches:
-      - main
   schedule:
     - cron: "0 0 * * *"
 
 jobs:
-  process_data:
+  update-csv:
     runs-on: ubuntu-latest
 
     steps:
-
-    
       - name: Checkout repository
         uses: actions/checkout@v2
 
@@ -22,21 +17,21 @@ jobs:
           curl -O https://storage.googleapis.com/prod-geoservice-lightship/POIsLightshipDevPortal.csv
 
       - name: Remove EXPERIMENTAL line
-        run: sed -i '/EXPERIMENTAL/d' POIsLightshipDevPortal.csv
-
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.8
+        run: |
+          sed -i '/EXPERIMENTAL/d' POIsLightshipDevPortal.csv
 
       - name: Run processed.py
-        run: python processed.py
+        run: python main/processed.py
 
-      - name: Commit and push changes
+      - name: Commit changes
         run: |
-          git config --global user.email "digby@65mail.cn"
-          git config --global user.name "ChestnutLUO"
-          git remote set-url origin "https://${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}.git"
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
           git add POIdb.csv
-          git commit -m "Remove EXPERIMENTAL line and process data"
-          git push
+          git commit -m "Update CSV file"
+
+      - name: Push changes to gh-pages branch
+        uses: ad-m/github-push-action@v0.7.0
+        with:
+          branch: gh-pages
+          github_token: ${{ secrets.GITHUB_TOKEN }}
