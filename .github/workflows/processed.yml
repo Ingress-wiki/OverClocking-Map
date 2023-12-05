@@ -29,7 +29,12 @@ jobs:
 
       - name: Run processed.py
         run: python processed.py
-
+        
+      - name: Create and switch to gh-pages branch
+        run: |
+          git checkout -B gh-pages
+          git push -u origin gh-pages
+          
       - name: Commit and push changes
         run: |
           git config user.name github-actions[bot]
