@@ -35,4 +35,4 @@ jobs:
           git checkout -b gh-pages origin/gh-pages || git checkout --orphan gh-pages
           git add POIdb.csv
           git commit -m "Update CSV file"
-          git push origin gh-pages
+          git push origin gh-pages --force
