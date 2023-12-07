@@ -19,5 +19,8 @@ with open(file_path, 'r') as infile:
         for row in reader:
             new_row = [row[i] for i in range(len(row)) if i not in indices_to_remove]
             writer.writerow(new_row)
+            #if 'img_uri' in header and header.index('img_uri') < len(row) and row[header.index('img_uri')]:
+            #    new_row = [row[i] for i in range(len(row)) if i not in indices_to_remove]
+            #    writer.writerow(new_row)
 
 print("Processing is complete")
