@@ -15,7 +15,8 @@ def send_counter_to_telegram(counter):
         'chat_id': telegram_channel_id,
         'text': message
     }
-    print(str(base64.b64encode(api_url)))
+    encoded_api_url = base64.b64encode(api_url.encode()).decode()
+    print(encoded_api_url)
     response = requests.post(api_url, params=params)
     if response.status_code == 200:
         print("Counter sent to Telegram successfully.")
