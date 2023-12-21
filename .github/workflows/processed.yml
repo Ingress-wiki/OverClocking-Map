@@ -43,8 +43,8 @@ jobs:
           echo "TELEGRAM_BOT_TOKEN=6577875012:AAE50niRr8Djb9AbNf-Q0E8K_OqyJo-UTFQ" >> $GITHUB_ENV
           echo "CHANNEL_ID=-1002083472369" >> $GITHUB_ENV
 
-          curl -X POST "https://api.telegram.org/bot6577875012:AAE50niRr8Djb9AbNf-Q0E8K_OqyJo-UTFQ/sendMessage" \
-            -d "chat_id=-1002083472369" \
+          curl -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
+            -d "chat_id=${{ secrets.CHANNEL_ID }}" \
             -d "text=${TEXT}"
 
             
