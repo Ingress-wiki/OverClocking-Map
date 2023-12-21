@@ -21,6 +21,7 @@ jobs:
         run: |
           curl -O https://storage.googleapis.com/prod-geoservice-lightship/POIsLightshipDevPortal.csv
           curl -O https://raw.githubusercontent.com/Ingress-wiki/OverClocking-Map/gh-pages/dailycheck.csv
+          curl -O https://raw.githubusercontent.com/Ingress-wiki/OverClocking-Map/gh-pages/lost.csv
           
       - name: Run processed.py
         env:
