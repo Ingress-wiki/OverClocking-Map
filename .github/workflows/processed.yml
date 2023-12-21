@@ -20,6 +20,7 @@ jobs:
       - name: Download CSV file
         run: |
           curl -O https://storage.googleapis.com/prod-geoservice-lightship/POIsLightshipDevPortal.csv
+          curl -O https://raw.githubusercontent.com/Ingress-wiki/OverClocking-Map/gh-pages/dailycheck.csv
           
       - name: Run processed.py
         env:
@@ -36,5 +37,7 @@ jobs:
           cat count.csv >> record.csv
           git add POIdb.csv
           git add record.csv
+          git add dailycheck.csv
+          git add lost.csv
           git commit -m "Update CSV file"
           git push origin gh-pages --force
