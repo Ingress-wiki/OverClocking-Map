@@ -27,7 +27,21 @@ jobs:
 
       - name: Run processed.py
         run: python processed.py
+        
+      - name: Read text file
+        run: |
+          TEXT=$(cat count.csv)
+          echo "::set-output name=TEXT::$TEXT"
 
+      - name: Send to Telegram
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          CHANNEL_ID: ${{ secrets.CHANNEL_ID }}
+        run: |
+          curl -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+            -d "chat_id=${CHANNEL_ID}" \
+            -d "text=${TEXT}"
+            
       - name: Commit and push changes to gh-pages branch
         run: |
           wget https://github.com/Ingress-wiki/OverClocking-Map/raw/gh-pages/record.csv
