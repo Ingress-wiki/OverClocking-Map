@@ -52,7 +52,7 @@ with open(file_path, 'r') as infile:
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         record_writer.writerow([timestamp, OCCounter,FairCounter,PendingCounter])
 
-send_to_telegram(timestamp+'\n'+"OCActivated:"+str(OCCounter)+'\n'+"Experimental/Fair:"+str(FairCounter)+'\n'+"Pending(Not visible in the game):"+str(PendingCounter))
+send_to_telegram(timestamp+'\n'+"OC-Activated:"+str(OCCounter)+'\n'+"Experimental/Fair quality:"+str(FairCounter)+'\n'+"Pending(Not visible in the game):"+str(PendingCounter))
 
 
 
