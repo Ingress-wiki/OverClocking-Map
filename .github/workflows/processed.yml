@@ -33,7 +33,7 @@ jobs:
           git fetch origin count:count || git checkout -b count origin/main
 
       - name: Pull latest changes from count branch
-        run: git pull origin count
+        run: wget https://raw.githubusercontent.com/Ingress-wiki/OverClocking-Map/count/record.csv
 
       - name: Append result to record.csv on count branch
         run: |
