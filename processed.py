@@ -3,8 +3,8 @@ from datetime import datetime
 import requests
 
 def send_counter_to_telegram(counter):
-    telegram_bot_token = 'YOUR_TELEGRAM_BOT_TOKEN'
-    telegram_channel_id = 'YOUR_TELEGRAM_CHANNEL_ID'
+    telegram_bot_token = os.environ.get('TELEGRAM_BOT_TOKEN')
+    telegram_channel_id = os.environ.get('TELEGRAM_CHANNEL_ID')
 
     message = f"Counter: {counter}"
     api_url = f"https://api.telegram.org/bot{telegram_bot_token}/sendMessage"
@@ -13,8 +13,6 @@ def send_counter_to_telegram(counter):
         'chat_id': telegram_channel_id,
         'text': message
     }
-    print(api_url)
-    print(telegram_bot_token)
     response = requests.post(api_url, params=params)
     if response.status_code == 200:
         print("Counter sent to Telegram successfully.")
