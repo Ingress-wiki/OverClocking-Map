@@ -56,7 +56,7 @@ send_to_telegram(timestamp+'\n'+"OC-Activated:"+str(OCCounter)+'\n'+"Experimenta
 current_time = datetime.now().time()
 
 # Check if the current time is between 0:00 and 2:00
-if time(0, 0) <= current_time <= time(2, 0) or True:
+if time(0, 0) <= current_time <= time(2, 0):
     os.system('rm location_data.db')
     os.system('python3 dailycheck.py')
     os.system('cp POIdb.csv dailycheck.csv')
