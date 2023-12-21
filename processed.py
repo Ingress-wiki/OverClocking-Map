@@ -49,7 +49,7 @@ with open(file_path, 'r') as infile:
             else:
                 PendingCounter += 1
 
-        timestamp = datetime.now().strftime("%Y-%m-%d %H")
+        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         record_writer.writerow([timestamp, OCCounter,FairCounter,PendingCounter])
 
 send_to_telegram(timestamp+'\n'+"OCActivated:"+str(OCCounter)+'\n'+"Experimental/Fair:"+str(FairCounter)+'\n'+"Pending(Not visible in the game):"+str(PendingCounter))
