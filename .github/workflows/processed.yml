@@ -29,18 +29,22 @@ jobs:
         run: python processed.py
         
       - name: Read text file
+        id: read-text
         run: |
           TEXT=$(cat count.csv)
-          echo "::set-output name=TEXT::$TEXT"
-
+          echo "Read TEXT: $TEXT"
+          echo "TEXT=$TEXT" >> $GITHUB_ENV
+      
       - name: Send to Telegram
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           CHANNEL_ID: ${{ secrets.CHANNEL_ID }}
         run: |
+          echo "TELEGRAM_BOT_TOKEN=$TELEGRAM_BOT_TOKEN" >> $GITHUB_ENV
+          echo "CHANNEL_ID=$CHANNEL_ID" >> $GITHUB_ENV
           curl -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
             -d "chat_id=${CHANNEL_ID}" \
-            -d "text=${TEXT}"
+            -d "text=${{ env.TEXT }}"
             
       - name: Commit and push changes to gh-pages branch
         run: |
