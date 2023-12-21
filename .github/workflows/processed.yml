@@ -28,16 +28,16 @@ jobs:
       - name: Run processed.py
         run: python processed.py
       
+      - name: Pull latest changes from count branch
+        run: git pull origin count
+
       - name: Append result to record.csv on count branch
         run: |
-          git config --global user.email "actions@github.com"
-          git config --global user.name "GitHub Actions"
-          git checkout count
-          git pull origin count
           cat count.csv >> record.csv
           git add record.csv
           git commit -m "Update record.csv with processed data"
           git push origin count --force
+
 
       - name: Commit and push changes to gh-pages branch
         run: |
