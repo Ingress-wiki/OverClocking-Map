@@ -27,20 +27,6 @@ jobs:
 
       - name: Run processed.py
         run: python processed.py
-        
-      - name: Read text file
-        id: read-text
-        run: |
-          TEXT=$(cat count.csv)
-          echo "Read TEXT: $TEXT"
-          echo "TEXT=$TEXT" >> $GITHUB_ENV
-      
-      - name: Send to Telegram
-        run: |
-          curl -X POST  "${{ secrets.POST_URL }}" \
-            -d "chat_id=-1002083472369" \
-            -d "text=${TEXT}"
-
             
       - name: Commit and push changes to gh-pages branch
         run: |
