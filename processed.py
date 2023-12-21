@@ -1,8 +1,7 @@
 import os
 import csv
-from datetime import datetime
+from datetime import datetime,time
 import requests
-import base64
 
 def send_to_telegram(message):
     telegram_bot_token = os.environ.get('TELEGRAM_BOT_TOKEN')
@@ -54,6 +53,13 @@ with open(file_path, 'r') as infile:
 
 send_to_telegram(timestamp+'\n'+"OC-Activated:"+str(OCCounter)+'\n'+"Experimental/Fair quality:"+str(FairCounter)+'\n'+"Pending(Not visible in the game):"+str(PendingCounter))
 
+current_time = datetime.now().time()
 
+# Check if the current time is between 0:00 and 2:00
+if time(0, 0) <= current_time <= time(2, 0) or True:
+    os.system('rm location_data.db')
+    os.system('python3 dailycheck.py')
+    os.system('cp POIdb.csv dailycheck.csv')
+    
 
 print("Processing is complete")
