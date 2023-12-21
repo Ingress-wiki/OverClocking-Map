@@ -37,7 +37,7 @@ jobs:
           cat count.csv >> record.csv
           git add record.csv
           git commit -m "Update record.csv with processed data"
-          git push origin count
+          git push origin count --force
 
       - name: Commit and push changes to gh-pages branch
         run: |
