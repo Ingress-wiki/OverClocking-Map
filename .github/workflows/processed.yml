@@ -12,7 +12,11 @@ permissions:
 jobs:
   update-csv:
     runs-on: ubuntu-latest
-
+    
+    env:
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHANNEL_ID: ${{ secrets.TELEGRAM_CHANNEL_ID }}
+    
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
