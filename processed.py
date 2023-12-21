@@ -24,7 +24,7 @@ with open(file_path, 'r') as infile:
                 Counter += 1
 
         # Output timestamp and counter to record.csv
-        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        timestamp = datetime.now().strftime("%Y-%m-%d %H")
         record_writer.writerow([timestamp, Counter])
 
 print("Processing is complete")
