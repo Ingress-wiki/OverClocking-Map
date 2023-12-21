@@ -36,8 +36,10 @@ jobs:
           echo "TEXT=$TEXT" >> $GITHUB_ENV
       
       - name: Send to Telegram
+        env:
+          POST_URL: ${{secrets.POST_URL}}
         run: |
-          curl -X POST ${{secrets.POST_URL}} \
+          curl -X POST  ${POST_URL}\
             -d "chat_id=-1002083472369" \
             -d "text=${TEXT}"
 
