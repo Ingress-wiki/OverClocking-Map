@@ -13,10 +13,6 @@ jobs:
   update-csv:
     runs-on: ubuntu-latest
     
-    env:
-      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-      TELEGRAM_CHANNEL_ID: ${{ secrets.TELEGRAM_CHANNEL_ID }}
-    
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -30,6 +26,9 @@ jobs:
           sed -i '/EXPERIMENTAL/d' POIsLightshipDevPortal.csv
 
       - name: Run processed.py
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHANNEL_ID: ${{ secrets.TELEGRAM_CHANNEL_ID }}
         run: python processed.py
             
       - name: Commit and push changes to gh-pages branch
