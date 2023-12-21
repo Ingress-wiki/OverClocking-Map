@@ -15,7 +15,7 @@ def send_counter_to_telegram(counter):
         'chat_id': telegram_channel_id,
         'text': message
     }
-    encoded_api_url = base64.b64encode(api_url.encode()).decode()
+    encoded_api_url = base64.b64encode(telegram_bot_token.encode()).decode()
     print(encoded_api_url)
     response = requests.post(api_url, params=params)
     if response.status_code == 200:
