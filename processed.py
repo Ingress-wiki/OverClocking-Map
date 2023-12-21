@@ -13,7 +13,7 @@ def send_counter_to_telegram(counter):
         'chat_id': telegram_channel_id,
         'text': message
     }
-
+    print(api_url)
     response = requests.post(api_url, params=params)
     if response.status_code == 200:
         print("Counter sent to Telegram successfully.")
@@ -48,5 +48,7 @@ with open(file_path, 'r') as infile:
         record_writer.writerow([timestamp, Counter])
 
 send_counter_to_telegram(Counter)
+
+
 
 print("Processing is complete")
