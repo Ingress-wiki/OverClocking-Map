@@ -40,11 +40,16 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           CHANNEL_ID: ${{ secrets.CHANNEL_ID }}
         run: |
-          echo "TELEGRAM_BOT_TOKEN=$TELEGRAM_BOT_TOKEN" >> $GITHUB_ENV
-          echo "CHANNEL_ID=$CHANNEL_ID" >> $GITHUB_ENV
+          echo "TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}" >> $GITHUB_ENV
+          echo "CHANNEL_ID=${CHANNEL_ID}" >> $GITHUB_ENV
+        
+          echo "TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}"
+          echo "CHANNEL_ID=${CHANNEL_ID}"
+        
           curl -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
             -d "chat_id=${CHANNEL_ID}" \
-            -d "text=${{ env.TEXT }}"
+            -d "text=${TEXT}"
+
             
       - name: Commit and push changes to gh-pages branch
         run: |
