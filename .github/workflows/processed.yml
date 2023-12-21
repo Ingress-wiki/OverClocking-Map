@@ -20,11 +20,7 @@ jobs:
       - name: Download CSV file
         run: |
           curl -O https://storage.googleapis.com/prod-geoservice-lightship/POIsLightshipDevPortal.csv
-
-      - name: Remove EXPERIMENTAL line
-        run: |
-          sed -i '/EXPERIMENTAL/d' POIsLightshipDevPortal.csv
-
+          
       - name: Run processed.py
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
