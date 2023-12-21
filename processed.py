@@ -14,6 +14,7 @@ def send_counter_to_telegram(counter):
         'text': message
     }
     print(api_url)
+    print(telegram_bot_token)
     response = requests.post(api_url, params=params)
     if response.status_code == 200:
         print("Counter sent to Telegram successfully.")
