@@ -22,6 +22,7 @@ jobs:
           curl -O https://storage.googleapis.com/prod-geoservice-lightship/POIsLightshipDevPortal.csv
           curl -O https://raw.githubusercontent.com/Ingress-wiki/OverClocking-Map/gh-pages/dailycheck.csv
           curl -O https://raw.githubusercontent.com/Ingress-wiki/OverClocking-Map/gh-pages/lost.csv
+          wget https://github.com/Ingress-wiki/OverClocking-Map/raw/gh-pages/record.csv
           
       - name: Run processed.py
         env:
@@ -31,7 +32,6 @@ jobs:
             
       - name: Commit and push changes to gh-pages branch
         run: |
-          wget https://github.com/Ingress-wiki/OverClocking-Map/raw/gh-pages/record.csv
           git config --global user.email "actions@github.com"
           git config --global user.name "GitHub Actions"
           git checkout -b gh-pages origin/gh-pages || git checkout --orphan gh-pages
