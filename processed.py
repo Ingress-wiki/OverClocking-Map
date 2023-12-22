@@ -61,9 +61,9 @@ with open(file_path, 'r') as infile:
 oc_difference = OCCounter - int(last_record[0])
 fair_difference = FairCounter - int(last_record[1])
 pending_difference = PendingCounter - int(last_record[2])
-
-message = f"{timestamp}\nOC-Activated: {OCCounter} ({'+' if oc_difference >= 0 else ''}{oc_difference})\nExperimental/Fair quality: {FairCounter} ({'+' if fair_difference >= 0 else ''}{fair_difference})\nPending(Not visible in the game): {PendingCounter} ({'+' if pending_difference >= 0 else ''}{pending_difference})"
-send_to_telegram(message)
+if oc_difference != 0:
+    message = f"{timestamp}\nOC-Activated: {OCCounter} ({'+' if oc_difference >= 0 else ''}{oc_difference})\nExperimental/Fair quality: {FairCounter} ({'+' if fair_difference >= 0 else ''}{fair_difference})\nPending(Not visible in the game): {PendingCounter} ({'+' if pending_difference >= 0 else ''}{pending_difference})"
+    send_to_telegram(message)
 
 current_time = datetime.now().time()
 
