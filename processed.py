@@ -1,6 +1,6 @@
 import os
 import csv
-from datetime import datetime,time
+from datetime import datetime, time
 import requests
 
 def send_to_telegram(message):
@@ -20,11 +20,18 @@ def send_to_telegram(message):
     else:
         print(f"Failed to send counter to Telegram. Status code: {response.status_code}")
 
-
 file_path = 'POIsLightshipDevPortal.csv'
 OCCounter = 0
 FairCounter = 0
-PendingCounter=0
+PendingCounter = 0
+
+record_file_path = 'record.csv'
+last_record = []
+if os.path.exists(record_file_path):
+    with open(record_file_path, 'r') as recordfile:
+        reader = csv.reader(recordfile)
+        last_record = list(reader)[-1][1:]
+
 with open(file_path, 'r') as infile:
     reader = csv.reader(infile)
     header = next(reader)
@@ -38,7 +45,7 @@ with open(file_path, 'r') as infile:
         new_header = [col for col in header if col not in columns_to_remove]
         writer.writerow(new_header)
         for row in reader:
-            if 'img_uri' in header and header.index('img_uri') < len(row) and row[header.index('img_uri')] :
+            if 'img_uri' in header and header.index('img_uri') < len(row) and row[header.index('img_uri')]:
                 if row[header.index('localizability')] == "PRODUCTION":
                     new_row = [row[i] for i in range(len(row)) if i not in indices_to_remove]
                     writer.writerow(new_row)
@@ -49,18 +56,21 @@ with open(file_path, 'r') as infile:
                 PendingCounter += 1
 
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        record_writer.writerow([timestamp, OCCounter,FairCounter,PendingCounter])
+        record_writer.writerow([timestamp, OCCounter, FairCounter, PendingCounter])
 
-send_to_telegram(timestamp+'\n'+"OC-Activated:"+str(OCCounter)+'\n'+"Experimental/Fair quality:"+str(FairCounter)+'\n'+"Pending(Not visible in the game):"+str(PendingCounter))
+oc_difference = OCCounter - int(last_record[0])
+fair_difference = FairCounter - int(last_record[1])
+pending_difference = PendingCounter - int(last_record[2])
+
+message = f"{timestamp}\nOC-Activated: {OCCounter} ({'+' if oc_difference >= 0 else ''}{oc_difference})\nExperimental/Fair quality: {FairCounter} ({'+' if fair_difference >= 0 else ''}{fair_difference})\nPending(Not visible in the game): {PendingCounter} ({'+' if pending_difference >= 0 else ''}{pending_difference})"
+print(message)
 
 current_time = datetime.now().time()
 
-# Check if the current time is between 0:00 and 2:00
 if time(0, 0) <= current_time <= time(2, 0):
     os.system('rm lost.csv')
     os.system('rm location_data.db')
     os.system('python3 dailycheck.py')
     os.system('cp POIdb.csv dailycheck.csv')
-    
 
 print("Processing is complete")
