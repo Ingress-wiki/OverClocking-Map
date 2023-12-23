@@ -61,4 +61,4 @@ with open('dailycheck.csv', 'r', encoding='utf-8') as input_file, open('lost.csv
         else:
             print("Warning: 'lng' or 'lat' value is None in input file. Skipping row.")
 conn.close()
-send_to_telegram("In the past 24 hours,there are "+ str(Counter)+" have lost OC ability.")
+send_to_telegram("In the past 24 hours,there are "+ str(Counter)+" protals have lost OC ability.")
