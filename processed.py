@@ -72,7 +72,5 @@ if time(0, 0) <= current_time <= time(2, 0):
     os.system('rm location_data.db')
     os.system('python3 dailycheck.py')
     os.system('cp POIdb.csv dailycheck.csv')
-    if oc_difference == 0:
-        send_to_telegram(message)
 
 print("Processing is complete")
