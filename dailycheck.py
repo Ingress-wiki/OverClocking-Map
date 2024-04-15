@@ -3,6 +3,41 @@ import csv
 import os
 import requests
 
+def send_file_to_telegram_bot(file_path):
+    telegram_bot_token = os.environ.get('TELEGRAM_BOT_TOKEN')
+    telegram_channel_id = os.environ.get('TELEGRAM_CHANNEL_ID')
+    """
+    Uploads a file to Telegram Bot and sends it to the specified chat.
+
+    Parameters:
+        bot_token (str): Telegram Bot API token.
+        chat_id (str): Chat ID where you want to send the file.
+        file_path (str): Path to the file you want to upload.
+
+    Returns:
+        bool: True if the file was successfully uploaded and sent, False otherwise.
+    """
+    # URL for sending files
+    url = f'https://api.telegram.org/bot{telegram_bot_token}/sendDocument'
+
+    # Open the file
+    with open(file_path, 'rb') as file:
+        # Prepare the request parameters
+        files = {'document': file}
+        params = {'chat_id': telegram_channel_id}
+
+        # Send the request
+        response = requests.post(url, files=files, params=params)
+
+    # Check the response
+    if response.status_code == 200:
+        print('File uploaded successfully.')
+        return True
+    else:
+        print(f'Failed to upload file. Status code: {response.status_code}')
+        print(response.text)
+        return False
+
 def send_to_telegram(message):
     telegram_bot_token = os.environ.get('TELEGRAM_BOT_TOKEN')
     telegram_channel_id = os.environ.get('TELEGRAM_CHANNEL_ID')
@@ -62,3 +97,4 @@ with open('dailycheck.csv', 'r', encoding='utf-8') as input_file, open('lost.csv
             print("Warning: 'lng' or 'lat' value is None in input file. Skipping row.")
 conn.close()
 send_to_telegram("In the past 24 hours,there were "+ str(Counter)+" protals lost OC ability.")
+send_file_to_telegram_bot("./lost.csv")
