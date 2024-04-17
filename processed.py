@@ -61,7 +61,7 @@ with open(file_path, 'r') as infile:
 oc_difference = OCCounter - int(last_record[0])
 fair_difference = FairCounter - int(last_record[1])
 pending_difference = PendingCounter - int(last_record[2])
-message = f"{timestamp}\nOC-Activated: {OCCounter} ({'+' if oc_difference >= 0 else ''}{oc_difference})\nExperimental/Fair quality: {FairCounter} ({'+' if fair_difference >= 0 else ''}{fair_difference})\nPending(Not visible in the game): {PendingCounter} ({'+' if pending_difference >= 0 else ''}{pending_difference})"
+message = f"{timestamp}\nOC activated: {OCCounter} ({'+' if oc_difference >= 0 else ''}{oc_difference})\nExperimental/Fair quality: {FairCounter} ({'+' if fair_difference >= 0 else ''}{fair_difference})\nPending(Not visible in the game): {PendingCounter} ({'+' if pending_difference >= 0 else ''}{pending_difference})"
 if oc_difference != 0:
     send_to_telegram(message)
 
