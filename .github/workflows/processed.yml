@@ -1,0 +1,44 @@
+name: OC-data-processed
+
+on:
+  push:
+    branches:
+      - main
+  schedule:
+     - cron: '0 */2 * * *'
+permissions:
+  contents: write
+  
+jobs:
+  update-csv:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Download CSV file
+        run: |
+          curl -O https://storage.googleapis.com/prod-geoservice-lightship/POIsLightshipDevPortal.csv
+          curl -O https://raw.githubusercontent.com/Ingress-wiki/OverClocking-Map/gh-pages/dailycheck.csv
+          curl -O https://raw.githubusercontent.com/Ingress-wiki/OverClocking-Map/gh-pages/lost.csv
+          wget https://github.com/Ingress-wiki/OverClocking-Map/raw/gh-pages/record.csv
+          
+      - name: Run processed.py
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHANNEL_ID: ${{ secrets.TELEGRAM_CHANNEL_ID }}
+        run: python processed.py
+            
+      - name: Commit and push changes to gh-pages branch
+        run: |
+          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Actions"
+          git checkout -b gh-pages origin/gh-pages || git checkout --orphan gh-pages
+          cat count.csv >> record.csv
+          git add POIdb.csv
+          git add record.csv
+          git add dailycheck.csv
+          git add lost.csv
+          git commit -m "Update CSV file"
+          git push origin gh-pages --force
