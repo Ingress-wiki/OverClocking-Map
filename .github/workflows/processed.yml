@@ -5,14 +5,14 @@ on:
     branches:
       - main
   schedule:
-    - cron: "0 */2 * * *"
+     - cron: '0 */2 * * *'
 permissions:
   contents: write
-
+  
 jobs:
   update-csv:
     runs-on: ubuntu-latest
-
+    
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -23,22 +23,13 @@ jobs:
           curl -O https://raw.githubusercontent.com/Ingress-wiki/OverClocking-Map/gh-pages/dailycheck.csv
           curl -O https://raw.githubusercontent.com/Ingress-wiki/OverClocking-Map/gh-pages/lost.csv
           wget https://github.com/Ingress-wiki/OverClocking-Map/raw/gh-pages/record.csv
-
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: "3.8"
-
-      - name: Install dependencies
-        run: |
-          pip install reverse_geocode
-
+          
       - name: Run processed.py
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHANNEL_ID: ${{ secrets.TELEGRAM_CHANNEL_ID }}
         run: python processed.py
-
+            
       - name: Commit and push changes to gh-pages branch
         run: |
           git config --global user.email "actions@github.com"
