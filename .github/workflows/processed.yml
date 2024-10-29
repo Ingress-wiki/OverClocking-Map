@@ -22,6 +22,7 @@ jobs:
           curl -O https://storage.googleapis.com/prod-geoservice-lightship/POIsLightshipDevPortal.csv
           curl -O https://raw.githubusercontent.com/Ingress-wiki/OverClocking-Map/gh-pages/dailycheck.csv
           curl -O https://raw.githubusercontent.com/Ingress-wiki/OverClocking-Map/gh-pages/lost.csv
+          curl -O https://raw.githubusercontent.com/Ingress-wiki/OverClocking-Map/gh-pages/add.csv
           wget https://github.com/Ingress-wiki/OverClocking-Map/raw/gh-pages/record.csv
 
       - name: Set up Python
@@ -49,5 +50,6 @@ jobs:
           git add record.csv
           git add dailycheck.csv
           git add lost.csv
+          git add add.csv
           git commit -m "Update CSV file"
           git push origin gh-pages --force
