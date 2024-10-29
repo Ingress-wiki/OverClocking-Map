@@ -111,9 +111,13 @@ send_to_telegram(f"In the past 24 hours, {lost_counter} portals lost their OC ab
 
 # Send country statistics to Telegram
 if country_counter:
-    country_message = "Countries with new POIs:\n"
+    country_message = "Countries with new OC-Portal:\n"
     for country, count in country_counter.most_common():
-        country_message += f"{country}: {count}\n"
+        if country == "China":
+            country_message += f"Chinese mainland: {count}\n"
+        else:
+            country_message += f"{country}: {count}\n"
+    country_message+="Visit https://ingress-wiki.github.io/OverClocking-Map/new to check new oc portal on the map"
     send_to_telegram(country_message)
 
 # Send the add and lost files to Telegram
