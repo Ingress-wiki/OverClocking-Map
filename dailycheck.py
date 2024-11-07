@@ -114,7 +114,7 @@ if country_counter:
     country_message = "Countries with new OC-Portal:\n"
     for country, count in country_counter.most_common():
         if country == "China":
-            country_message += f"Chinese mainland: {count}\n"
+            country_message += f"China mainland: {count}\n"
         else:
             country_message += f"{country}: {count}\n"
     country_message+="Visit https://ingress-wiki.github.io/OverClocking-Map/new to check new oc portal on the map"
